@@ -21,6 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -91,13 +92,17 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, index) => (
                 <TableRow
                   key={row.id}
-                  className="border-card-border hover:bg-muted/50 transition-colors duration-fast"
+                  className={cn(
+                    "border-card-border hover:bg-muted/50 transition-all duration-200 hover:shadow-sm",
+                    "animate-fade-in"
+                  )}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="py-4">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -105,12 +110,19 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  <div className="flex flex-col items-center justify-center space-y-2">
-                    <p className="text-muted-foreground">No results found.</p>
-                    <p className="text-sm text-muted-foreground">
-                      Try adjusting your search terms.
-                    </p>
+                <TableCell colSpan={columns.length} className="h-32 text-center">
+                  <div className="flex flex-col items-center justify-center space-y-3 animate-fade-in">
+                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
+                      <svg className="h-6 w-6 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground font-medium">No results found</p>
+                      <p className="text-sm text-muted-foreground">
+                        Try adjusting your search terms.
+                      </p>
+                    </div>
                   </div>
                 </TableCell>
               </TableRow>
