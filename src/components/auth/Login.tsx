@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSignIn } from "@/modules/auth/auth.hooks";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Email tidak valid" }),
@@ -21,17 +22,18 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const { mutate, isPending } = useSignIn();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
+    disabled: isPending,
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log("Login data:", data);
-    // TODO: Kirim ke backend
+    return mutate({ email: data.email, password: data.password });
   };
 
   return (

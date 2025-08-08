@@ -1,80 +1,93 @@
-import { useState } from 'react';
-import { MoreHorizontal, Eye, Edit, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { MoreHorizontal, Eye, Edit, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { DataTable } from '@/components/ui/data-table';
-import { ColumnDef } from '@tanstack/react-table';
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { DataTable } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { useGetUser } from "@/modules/user/user.hooks";
 
 type User = {
   id: string;
   name: string;
   email: string;
   role: string;
-  status: 'active' | 'inactive' | 'pending';
+  status: "active" | "inactive" | "pending";
   lastLogin: string;
 };
 
 const userData: User[] = [
   {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'Admin',
-    status: 'active',
-    lastLogin: '2 hours ago',
+    id: "1",
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Admin",
+    status: "active",
+    lastLogin: "2 hours ago",
   },
   {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'Editor',
-    status: 'active',
-    lastLogin: '1 day ago',
+    id: "2",
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "Editor",
+    status: "active",
+    lastLogin: "1 day ago",
   },
   {
-    id: '3',
-    name: 'Bob Johnson',
-    email: 'bob@example.com',
-    role: 'Viewer',
-    status: 'inactive',
-    lastLogin: '1 week ago',
+    id: "3",
+    name: "Bob Johnson",
+    email: "bob@example.com",
+    role: "Viewer",
+    status: "inactive",
+    lastLogin: "1 week ago",
   },
   {
-    id: '4',
-    name: 'Alice Brown',
-    email: 'alice@example.com',
-    role: 'Editor',
-    status: 'pending',
-    lastLogin: 'Never',
+    id: "4",
+    name: "Alice Brown",
+    email: "alice@example.com",
+    role: "Editor",
+    status: "pending",
+    lastLogin: "Never",
   },
 ];
 
-const getStatusBadge = (status: User['status']) => {
+const getStatusBadge = (status: User["status"]) => {
   switch (status) {
-    case 'active':
-      return <Badge variant="secondary" className="bg-success/10 text-success">Active</Badge>;
-    case 'inactive':
-      return <Badge variant="secondary" className="bg-muted text-muted-foreground">Inactive</Badge>;
-    case 'pending':
-      return <Badge variant="secondary" className="bg-warning/10 text-warning">Pending</Badge>;
+    case "active":
+      return (
+        <Badge variant="secondary" className="bg-success/10 text-success">
+          Active
+        </Badge>
+      );
+    case "inactive":
+      return (
+        <Badge variant="secondary" className="bg-muted text-muted-foreground">
+          Inactive
+        </Badge>
+      );
+    case "pending":
+      return (
+        <Badge variant="secondary" className="bg-warning/10 text-warning">
+          Pending
+        </Badge>
+      );
     default:
       return <Badge variant="secondary">Unknown</Badge>;
   }
 };
 
 export default function Users() {
-  const [users, setUsers] = useState<User[]>(userData);
+  const { data, isPending } = useGetUser();
 
   const columns: ColumnDef<User>[] = [
     {
-      accessorKey: 'name',
-      header: 'Name',
+      accessorKey: "name",
+      header: "Name",
       cell: ({ row }) => {
         const user = row.original;
         return (
@@ -86,30 +99,18 @@ export default function Users() {
       },
     },
     {
-      accessorKey: 'role',
-      header: 'Role',
+      accessorKey: "role",
+      header: "Role",
       cell: ({ row }) => (
-        <Badge variant="outline">{row.getValue('role')}</Badge>
+        <Badge variant="outline">{row.getValue("role")}</Badge>
       ),
     },
     {
-      accessorKey: 'status',
-      header: 'Status',
-      cell: ({ row }) => getStatusBadge(row.getValue('status')),
-    },
-    {
-      accessorKey: 'lastLogin',
-      header: 'Last Login',
-      cell: ({ row }) => (
-        <span className="text-muted-foreground">{row.getValue('lastLogin')}</span>
-      ),
-    },
-    {
-      id: 'actions',
-      header: 'Actions',
+      id: "actions",
+      header: "Actions",
       cell: ({ row }) => {
         const user = row.original;
-        
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -150,13 +151,16 @@ export default function Users() {
         <Button>Add User</Button>
       </div>
 
-      {/* Table */}
-      <DataTable
-        columns={columns}
-        data={users}
-        searchKey="name"
-        searchPlaceholder="Search users..."
-      />
+      {isPending ? (
+        <div className="w-4 h-4 border-r animate-spin" />
+      ) : (
+        <DataTable
+          columns={columns}
+          data={data?.data?.data}
+          searchKey="name"
+          searchPlaceholder="Search users..."
+        />
+      )}
     </div>
   );
 }

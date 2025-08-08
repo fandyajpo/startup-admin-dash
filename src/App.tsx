@@ -7,7 +7,7 @@ import { DashboardLayout } from "./components/layout/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import NotFound from "./pages/NotFound";
-import Login from "./components/auth/login";
+import Login from "./components/auth/Login";
 
 const queryClient = new QueryClient();
 

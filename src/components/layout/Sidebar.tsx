@@ -39,7 +39,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <div className="flex h-full flex-col">
           {/* Header */}
           <div className="flex h-16 items-center justify-between px-6 border-b border-card-border">
-            <h1 className="text-xl font-bold text-foreground bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold text-foreground bg-gradient-primary bg-clip-text">
               AdminHub
             </h1>
             <Button
