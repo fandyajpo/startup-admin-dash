@@ -6,6 +6,7 @@ import {
   BarChart3,
   Package,
   Settings,
+  GroupIcon,
   X,
   ChevronLeft,
 } from "lucide-react";
@@ -19,11 +20,12 @@ interface SidebarProps {
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Users", href: "/users", icon: Users },
-  { name: "Transactions", href: "/transactions", icon: CreditCard },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Products", href: "/products", icon: Package },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Users", href: "/user", icon: Users },
+  // { name: "Transactions", href: "/transaction", icon: CreditCard },
+  // { name: "Analytics", href: "/analytic", icon: BarChart3 },
+  // { name: "Products", href: "/product", icon: Package },
+  { name: "Tenants", href: "/tenant", icon: GroupIcon },
+  // { name: "Settings", href: "/setting", icon: Settings },
 ];
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
@@ -62,7 +64,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                 style={{ animationDelay: `${index * 50}ms` }}
                 className={({ isActive }) =>
                   cn(
-                    "flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 group animate-fade-in hover-lift",
+                    "flex items-center px-3 py-3 text-sm font-medium rounded-sm transition-all duration-200 group animate-fade-in hover-lift",
                     isActive
                       ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/70"
