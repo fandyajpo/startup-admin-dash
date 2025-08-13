@@ -23,7 +23,7 @@ const navigation = [
   { name: "Users", href: "/user", icon: Users },
   // { name: "Transactions", href: "/transaction", icon: CreditCard },
   // { name: "Analytics", href: "/analytic", icon: BarChart3 },
-  // { name: "Products", href: "/product", icon: Package },
+  { name: "Inclusions", href: "/inclusion", icon: Package },
   { name: "Tenants", href: "/tenant", icon: GroupIcon },
   // { name: "Settings", href: "/setting", icon: Settings },
 ];

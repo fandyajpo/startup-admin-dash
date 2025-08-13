@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createTenant,
-  getTenantByid,
+  getTenantById,
   listTenant,
   removeTenantById,
   updateTenant,
@@ -53,7 +53,7 @@ export const useUpdateTenant = () => {
 export const useGetTenantById = () => {
   const params = useParams<{ id: string }>();
   const queryKey = ["GET_TENANT_BY_ID", { TenantId: params?.id }];
-  const queryFn = async () => await getTenantByid(params.id);
+  const queryFn = async () => await getTenantById(params.id);
   return useQuery({ queryKey, queryFn });
 };
 

@@ -21,13 +21,13 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export default function LoginPage() {
+const LoginForm = () => {
   const { mutate, isPending } = useSignIn();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "test@example.com",
+      password: "password1234",
     },
     disabled: isPending,
   });
@@ -95,4 +95,6 @@ export default function LoginPage() {
       </Card>
     </div>
   );
-}
+};
+
+export default LoginForm;

@@ -37,7 +37,7 @@ interface Props {
   data?: TenantSchemaMaybeWithId;
 }
 
-function TenantForm(props: Props) {
+const TenantForm = (props: Props) => {
   const { mutate: create, isPending: pendingCreate } = useCreateTenant();
   const { mutate: update, isPending: pendingUpdate } = useUpdateTenant();
 
@@ -354,6 +354,6 @@ function TenantForm(props: Props) {
       </form>
     </Form>
   );
-}
+};
 
 export default TenantForm;

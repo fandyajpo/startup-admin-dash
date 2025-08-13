@@ -16,16 +16,16 @@ import {
 
 import { TenantSchemaWithId } from "@/modules/tenant/tenant.typing";
 import {
-  useGetTenant,
-  useRemoveTenantById,
-} from "@/modules/tenant/tenant.hooks";
+  useGetInclusion,
+  useRemoveInclusionById,
+} from "@/modules/inclusion/inclusion.hooks";
 
 const TenantAction = (props: TenantSchemaWithId) => {
-  const { mutate, isPending } = useRemoveTenantById();
+  const { mutate, isPending } = useRemoveInclusionById();
   return (
     <div className="flex items-center gap-2">
       <Button type="button" variant="outline">
-        <Link to={`/tenant/${props._id}`}>
+        <Link to={`/inclusion/${props._id}`}>
           <FileEdit />
         </Link>
       </Button>
@@ -66,7 +66,7 @@ const TenantAction = (props: TenantSchemaWithId) => {
 };
 
 const Tenant = () => {
-  const { data, isPending } = useGetTenant();
+  const { data, isPending } = useGetInclusion();
 
   const columns: ColumnDef<TenantSchemaWithId>[] = [
     {
@@ -77,18 +77,6 @@ const Tenant = () => {
         return (
           <div>
             <div className="text-sm text-muted-foreground">{tenant.name}</div>
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "slug",
-      header: "Slug",
-      cell: ({ row }) => {
-        const tenant = row.original;
-        return (
-          <div>
-            <div className="text-sm text-muted-foreground">{tenant.slug}</div>
           </div>
         );
       },
@@ -111,7 +99,7 @@ const Tenant = () => {
           <h1 className="text-2xl font-bold text-foreground">Tenants</h1>
           <p className="text-muted-foreground">Manage your tenant.</p>
         </div>
-        <Link to={"/tenant/create"}>
+        <Link to={"/inclusion/create"}>
           <Button>Create Tenant</Button>
         </Link>
       </div>

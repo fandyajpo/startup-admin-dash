@@ -19,11 +19,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useSignOut } from "@/modules/auth/auth.hooks";
+
 interface TopBarProps {
   onMenuClick: () => void;
 }
 
 export const TopBar = ({ onMenuClick }: TopBarProps) => {
+  const { mutate, isPending } = useSignOut();
   return (
     <header className="h-16 bg-card border-b border-card-border backdrop-blur-sm sticky top-0 z-30">
       <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -100,7 +103,11 @@ export const TopBar = ({ onMenuClick }: TopBarProps) => {
                 Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive hover:bg-destructive/10 transition-colors duration-200">
+              <DropdownMenuItem
+                disabled={isPending}
+                onClick={() => mutate()}
+                className="text-destructive hover:bg-destructive/10 transition-colors duration-200"
+              >
                 <LogOut className="mr-2 h-4 w-4" />
                 Sign out
               </DropdownMenuItem>

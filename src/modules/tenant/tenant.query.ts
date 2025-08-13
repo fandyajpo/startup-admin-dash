@@ -19,7 +19,7 @@ export const updateTenant = async (data: TenantSchemaWithId) => {
   });
 };
 
-export const getTenantByid = async (id: string) => {
+export const getTenantById = async (id: string) => {
   return await apiInstance.get(`/api/v1/tenant/${id}`, {
     withCredentials: true,
   });
