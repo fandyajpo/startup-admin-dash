@@ -96,11 +96,11 @@ const Tenant = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Tenants</h1>
-          <p className="text-muted-foreground">Manage your tenant.</p>
+          <h1 className="text-2xl font-bold text-foreground">Inclusion</h1>
+          <p className="text-muted-foreground">Manage your inclusion.</p>
         </div>
         <Link to={"/inclusion/create"}>
-          <Button>Create Tenant</Button>
+          <Button>Create Inclusion</Button>
         </Link>
       </div>
 
